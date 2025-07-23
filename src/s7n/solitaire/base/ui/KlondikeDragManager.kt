@@ -52,6 +52,7 @@ class KlondikeDragManager(private val dragStackPanel: CardStackPanel): DragManag
             if (candidateDragSource is CardStackPanel) {
                 val candidateStack = candidateDragSource.getDragStack(e.point)
                 if (candidateStack.isEmpty()) return
+                dragPoint = e.point
                 dragSourcePanel = candidateDragSource
                 assert(dragStackPanel.cardStack.isEmpty()) { "dragStack=${dragStackPanel.cardStack}"}
                 dragStackPanel.cardStack.add(candidateStack)

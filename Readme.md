@@ -15,12 +15,10 @@ would probably require new data structure(s) to support.
 
 ## What's missing/to do:
 
-* Cheat functions could be better
-* animate drag undo
-* implement Windows-style card moves in Free Cell?
 * CardStackPanel height should be dynamic based on how many cards it contains
-* Dragging is kinda broken when you click down on an unddraggable spot and then drag
-  over a draggable stack
+* animate drag undo
+* Cheat functions could be better
+* implement Windows-style card moves in Free Cell?
 
 # Resources
 

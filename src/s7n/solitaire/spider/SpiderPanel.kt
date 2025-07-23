@@ -17,7 +17,6 @@ class SpiderPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePanel
 
     init {
         val width = STACK_LEFT_MARGIN * 2 + ImageManager.getCardWidth() * 10 + STACK_HORIZONTAL_SPACING * 10
-        println("width=$width")
         preferredSize = Dimension(width, PANEL_HEIGHT)
         initialize()
 
