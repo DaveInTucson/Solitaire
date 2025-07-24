@@ -110,11 +110,11 @@ class KlondikeDragManager(private val dragStackPanel: CardStackPanel): DragManag
 
                 // feedback for debugging failed drop. (crosshairPanel must be added in #install above)
                 crosshairPanel.setPosition(getDropPoint())
-                if (dropTarget is CardStackPanel) {
-                    println("dropTarget doesn't accept card stack")
-                }
-                else
-                    println("dropTarget is not a CardStackPanel")
+//                if (dropTarget is CardStackPanel) {
+//                    println("dropTarget doesn't accept card stack")
+//                }
+//                else
+//                    println("dropTarget is not a CardStackPanel")
             }
 
             dragSourcePanel = null

@@ -22,16 +22,15 @@ class CardStackPanel(val cardStack: CardStack, public val spreadDown: Boolean): 
         setSize()
         background = Color(FELT_GREEN_RGB)
 
-        cardStack.addObserver(object: ChangeObserver {
-            override fun onChange() {
-                repaint()
-            }
-        })
+        cardStack.addObserver {
+            setSize()
+            repaint()
+        }
     }
 
     private fun setSize() {
         var height = ImageManager.getCardHeight()
-        if (spreadDown) height += TABLEAU_OFFSET * 50
+        if (spreadDown && cardStack.size > 1) height += TABLEAU_OFFSET * (cardStack.size - 1)
         setSize(ImageManager.getCardWidth(), height)
     }
 

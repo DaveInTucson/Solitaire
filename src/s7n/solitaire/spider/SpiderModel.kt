@@ -67,7 +67,7 @@ class SpiderModel: SolitaireModel() {
         }
 
         var consecutiveCount = 0
-        (arrayOf(dragStack) + tableaus).forEach {
+        (arrayOf(dragStack) + tableaus + goals).forEach {
             for (i in it.cardStack.indices) {
                 if (isConsecutive(it, i)) consecutiveCount++
             }

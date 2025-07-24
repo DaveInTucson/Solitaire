@@ -15,7 +15,6 @@ would probably require new data structure(s) to support.
 
 ## What's missing/to do:
 
-* CardStackPanel height should be dynamic based on how many cards it contains
 * animate drag undo
 * Cheat functions could be better
 * implement Windows-style card moves in Free Cell?
