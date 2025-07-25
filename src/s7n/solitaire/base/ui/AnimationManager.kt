@@ -9,7 +9,10 @@ import kotlin.math.sqrt
 private const val ANIMATION_TIMER_DELAY = 1
 private const val ANIMATION_MOVE_SIZE = 40
 
-
+/**
+ * This object is used to animate cards moving across the playing field.
+ * See {KlondikeDragManager} for how cards are dragged across the playing field
+ */
 object AnimationManager {
     private val timer = Timer(ANIMATION_TIMER_DELAY) { doAnimationBody() }
 
@@ -25,19 +28,27 @@ object AnimationManager {
     private var deltaY: Double = 0.0
     private var loopCount = 0
 
+    /**
+     * Compute deltaX, deltaY, and initialize currentX, CurrentY
+     */
     private fun computeAnimationParameters() {
         val xLength = toPoint.x - fromPoint.location.x
         val yLength = toPoint.y - fromPoint.location.y
         if (xLength == 0 && yLength == 0) throw IllegalArgumentException("fromPoint == toPoint!")
 
-        val length = sqrt((xLength * xLength + yLength * yLength).toDouble())
+        val animationDistance = sqrt((xLength * xLength + yLength * yLength).toDouble())
 
-        deltaX = (xLength * ANIMATION_MOVE_SIZE) / length
-        deltaY = (yLength * ANIMATION_MOVE_SIZE) / length
+        deltaX = (xLength * ANIMATION_MOVE_SIZE) / animationDistance
+        deltaY = (yLength * ANIMATION_MOVE_SIZE) / animationDistance
         currentX = fromPoint.x.toDouble()
         currentY = fromPoint.y.toDouble()
     }
 
+    /**
+     * Entry point: animate the moving of a panel from a starting to destination point.
+     * Set up the animation parameters and then call the timer start() method to begin
+     * the animation
+     */
     fun animate(panel: JPanel, fromPoint: Point, toPoint: Point, onAnimationDone: (Boolean) -> Unit) {
         if (timer.isRunning) throw IllegalStateException("animation timer is already animating!")
         this.movingPanel = panel
@@ -75,6 +86,7 @@ object AnimationManager {
         }
         catch (e: Exception) {
             println("caught $e")
+            onAnimationDone(false)
         }
     }
 }

@@ -20,7 +20,7 @@ class KlondikePanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePan
     override fun getDragManager(): DragManager = dragManager
 
     init {
-        preferredSize = Dimension(PANEL_WIDTH, PANEL_HEIGHT)
+        preferredSize = Dimension(computePreferredWidth(7), PANEL_HEIGHT)
         initialize()
 
         model.newGame()

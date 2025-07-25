@@ -34,6 +34,12 @@ abstract class SolitaireModel {
         return fullGoalCount == goals.size
     }
 
+    protected fun getCheatCountMesage(): String {
+        return if (cheatCount == 1) "once"
+        else if (cheatCount == 2) "twice"
+        else "$cheatCount times"
+    }
+
     open fun gameIsWon() = allGoalsFull()
     open fun checkCardCount() {}
 

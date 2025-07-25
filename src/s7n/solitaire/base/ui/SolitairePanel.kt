@@ -10,7 +10,6 @@ import javax.swing.JPanel
 
 const val FELT_GREEN_RGB = 0x277714
 
-const val PANEL_WIDTH = 700
 const val PANEL_HEIGHT = 500
 
 const val STACK_TOP_MARGIN = 20
@@ -24,6 +23,9 @@ fun setRowColumn(panel: JPanel, row: Int, col: Int) {
     panel.setLocation(x, y)
 }
 
+fun computePreferredWidth(columnCount: Int): Int {
+    return STACK_LEFT_MARGIN * 2 + (ImageManager.getCardWidth() + STACK_HORIZONTAL_SPACING) * columnCount
+}
 
 abstract class SolitairePanel(val gameName: GameNames, private val statusPanel: StatusPanel): JPanel() {
     private var firstTimeVisible = true

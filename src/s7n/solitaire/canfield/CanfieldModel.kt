@@ -118,10 +118,8 @@ class CanfieldModel: SolitaireModel() {
         var message = "You won with $dealCount deal"
         if (dealCount > 1) message += "s"
         if (cheatCount > 0) {
-            message += ", but you cheated $cheatCount time"
-            if (cheatCount > 1) message += "s"
+            message += ", but you cheated ${getCheatCountMesage()}"
         }
-        message += "."
-        return message
+        return "$message."
     }
 }

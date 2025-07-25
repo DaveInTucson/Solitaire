@@ -4,8 +4,6 @@ import s7n.solitaire.base.*
 import s7n.solitaire.base.ui.*
 import java.awt.Dimension
 
-const val SPIDER_PANEL_WIDTH = 1000
-
 class SpiderPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePanel(gameType, statusPanel) {
     private val model = SpiderModel()
 
@@ -16,8 +14,7 @@ class SpiderPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePanel
     private val dragManager = KlondikeDragManager(dragStackPanel)
 
     init {
-        val width = STACK_LEFT_MARGIN * 2 + ImageManager.getCardWidth() * 10 + STACK_HORIZONTAL_SPACING * 10
-        preferredSize = Dimension(width, PANEL_HEIGHT)
+        preferredSize = Dimension(computePreferredWidth(10), PANEL_HEIGHT)
         initialize()
 
         model.newGame()

@@ -18,6 +18,7 @@ would probably require new data structure(s) to support.
 * animate drag undo
 * Cheat functions could be better
 * implement Windows-style card moves in Free Cell?
+* comments, code review, cleanup
 
 # Resources
 

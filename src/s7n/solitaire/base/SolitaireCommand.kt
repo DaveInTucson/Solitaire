@@ -253,5 +253,4 @@ class CheatCommand(private val sourceStack: CardStack, private val promotionInde
             onComplete()
         }
     }
-
 }

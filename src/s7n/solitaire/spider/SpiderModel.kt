@@ -11,6 +11,9 @@ class SpiderModel: SolitaireModel() {
         // every move in this game is to and/or from the tableau, so there is no need to
         // observe the deck or goals for changes
         tableaus.forEach { it.addObserver { onChange() } }
+
+        // observing the dragStack allows us to keep track of consecutive cards while dragging
+        // (see getStatus())
         dragStack.addObserver { onChange() }
     }
 
@@ -25,16 +28,15 @@ class SpiderModel: SolitaireModel() {
         deck.makeDoubleDeck()
         deck.shuffle()
 
-        // 10 columns of 5 cards...
-        for (row in 1..5) {
-            for (element in tableaus) {
-                element.addTop(deck.getTopCard())
-            }
+        // 5 rows  of 10 columns = 50 cards
+        (1..5).forEach { _ ->
+            tableaus.forEach { it.addTop(deck.getTopCard()) }
         }
 
-        // plus one more for the first 4 columns, total of 54 cards dealt
-        for (col in 0..3)
+        // plus one more row for the first 4 columns, total of 54 cards dealt
+        (1..4).forEach { col ->
             tableaus[col].addTop(deck.getTopCard())
+        }
 
         tableaus.forEach {
             it.setAllFaceUp(false)
@@ -82,10 +84,8 @@ class SpiderModel: SolitaireModel() {
         if (!gameIsWon()) return "Game is not won!"
         var message = "You won"
         if (cheatCount > 0) {
-            message += ", but you cheated $cheatCount time"
-            if (cheatCount > 1) message += "s"
+            message += ", but you cheated ${getCheatCountMesage()}"
         }
-        message += "."
-        return message
+        return "$message."
     }
 }

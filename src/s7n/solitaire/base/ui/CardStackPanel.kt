@@ -9,7 +9,7 @@ import javax.swing.JPanel
 
 const val TABLEAU_OFFSET = 20
 
-class CardStackPanel(val cardStack: CardStack, public val spreadDown: Boolean): JPanel() {
+class CardStackPanel(val cardStack: CardStack, val spreadDown: Boolean): JPanel() {
 
     var onSingleClick : SolitaireCommandFactory? = null
     var onDoubleClick : SolitaireCommandFactory? = null

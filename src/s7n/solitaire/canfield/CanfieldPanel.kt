@@ -7,6 +7,8 @@ import java.awt.Dimension
 import javax.swing.JOptionPane
 import javax.swing.SwingUtilities
 
+private const val CANFIELD_PANEL_HEIGHT = 600
+
 class CanfieldPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePanel(gameType, statusPanel) {
     private val model = CanfieldModel()
 
@@ -23,7 +25,7 @@ class CanfieldPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePan
     override fun getDragManager() = dragManager
 
     init {
-        preferredSize = Dimension(PANEL_WIDTH, PANEL_HEIGHT)
+        preferredSize = Dimension(computePreferredWidth(7), CANFIELD_PANEL_HEIGHT)
         initialize()
 
         model.newGame()

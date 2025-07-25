@@ -79,8 +79,8 @@ class FreeCellModel: SolitaireModel() {
         //checkCardCount()
         if (gameIsWon()) {
             var message = "Game is won!"
-            if (cheatCount > 0) message += " Cheats: $cheatCount"
-            return message
+            if (cheatCount > 0) message += " You cheated ${getCheatCountMesage()}"
+            return "$message."
         }
 
         val openCellCount = freeCells.count { it.isEmpty() }

@@ -5,8 +5,6 @@ import s7n.solitaire.base.ui.*
 import java.awt.Dimension
 import javax.swing.JOptionPane
 
-const val FREE_CELL_PANEL_WIDTH = 850
-
 class FreeCellPanel(gameTYpe: GameNames, statusPanel: StatusPanel): SolitairePanel(gameTYpe, statusPanel) {
     private val model = FreeCellModel()
 
@@ -17,7 +15,7 @@ class FreeCellPanel(gameTYpe: GameNames, statusPanel: StatusPanel): SolitairePan
     private val dragManager = KlondikeDragManager(dragStackPanel)
 
     init {
-        preferredSize = Dimension(FREE_CELL_PANEL_WIDTH, PANEL_HEIGHT)
+        preferredSize = Dimension(computePreferredWidth(9), PANEL_HEIGHT)
 
         initialize()
 
