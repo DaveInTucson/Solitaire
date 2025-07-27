@@ -9,7 +9,8 @@ import java.awt.Container
 import java.awt.Point
 import java.awt.event.MouseEvent
 
-/* The drag manager class takes the various relevant mouse events (mouse click, mouse
+/**
+ *  The drag manager class takes the various relevant mouse events (mouse click, mouse
  * drag, mouse release) and turns them into cards being dragged around the playing field.
  * There is a special CardStackPanel used for this purpose (normally hidden from view).
  * This class manages getting cards to drag from the source panel, moving the drag panel
@@ -21,8 +22,13 @@ import java.awt.event.MouseEvent
  *
  * This drag manager was initially implemented for Klondike (the first game I did), and it
  * turns out to work just fine for Canfield, Free Cell, and Spider.
+ *
+ * By default, a {@link DragCardsCommand} is issued, which simply adds the dragged card(s) to the
+ * target stack. For games like Pyramid (where the dragged card and the target card are
+ * moved to the goal) you will have to override {@link #getDragCommand()} to implement the
+ * behavior that you want.
  */
-class KlondikeDragManager(private val dragStackPanel: CardStackPanel): DragManager {
+open class KlondikeDragManager(private val dragStackPanel: CardStackPanel): DragManager {
     private val crosshairPanel = CrosshairPanel()
 
     val isDragging: Boolean
@@ -76,7 +82,7 @@ class KlondikeDragManager(private val dragStackPanel: CardStackPanel): DragManag
         }
     }
 
-    /* This method determines the drop point, the point to check where the drag is released
+    /**  Determines the drop point, the point to check where the drag is released
      * (and specifically what's underneath it).
      */
     private fun getDropPoint(): Point {
@@ -101,8 +107,7 @@ class KlondikeDragManager(private val dragStackPanel: CardStackPanel): DragManag
         dragSourcePanel?.let {
             val dropTarget = getDropTarget(e.component, getDropPoint())
             if (dropTarget is CardStackPanel && dropTarget.cardStack.accepts(dragStackPanel.cardStack)) {
-                val command = DragCardsCommand(dragSourcePanel!!, dropTarget, dragStackPanel)
-                result = command
+                result = getDragCommand(it, dropTarget, dragStackPanel)
             }
             else {
                 // return dragged cards to their source
@@ -121,5 +126,12 @@ class KlondikeDragManager(private val dragStackPanel: CardStackPanel): DragManag
         }
 
         return result
+    }
+
+    protected open fun getDragCommand(
+        sourcePanel: CardStackPanel,
+        targetPanel: CardStackPanel,
+        dragPanel: CardStackPanel) : SolitaireCommand {
+        return DragCardsCommand(sourcePanel, targetPanel, dragStackPanel)
     }
 }

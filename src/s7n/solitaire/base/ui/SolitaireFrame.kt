@@ -3,6 +3,7 @@ package s7n.solitaire.base.ui
 import s7n.solitaire.canfield.CanfieldPanel
 import s7n.solitaire.freeCell.FreeCellPanel
 import s7n.solitaire.klondike.KlondikePanel
+import s7n.solitaire.pyramid.PyramidPanel
 import s7n.solitaire.spider.SpiderPanel
 import java.awt.BorderLayout
 import java.awt.CardLayout
@@ -18,7 +19,7 @@ import javax.swing.SwingUtilities
 import kotlin.system.exitProcess
 
 enum class GameNames {
-    Klondike, Canfield, FreeCell, Spider
+    Klondike, Canfield, FreeCell, Spider, Pyramid
 }
 
 class SolitaireFrame: JFrame("Dave's Solitaire") {
@@ -28,7 +29,8 @@ class SolitaireFrame: JFrame("Dave's Solitaire") {
         KlondikePanel(GameNames.Klondike, statusPanel),
         CanfieldPanel(GameNames.Canfield, statusPanel),
         FreeCellPanel(GameNames.FreeCell, statusPanel),
-        SpiderPanel(GameNames.Spider, statusPanel)
+        SpiderPanel(GameNames.Spider, statusPanel),
+        PyramidPanel(GameNames.Pyramid, statusPanel)
     )
 
     private var currentGameIndex = 0

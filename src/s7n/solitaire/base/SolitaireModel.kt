@@ -23,7 +23,7 @@ abstract class SolitaireModel {
         observers.forEach { it.onChange() }
     }
 
-    protected fun allGoalsFull(): Boolean {
+    protected open fun allGoalsFull(): Boolean {
         val goals = getCardStacks(STACKS_NAME_GOALS)
         var fullGoalCount = 0
         goals.forEach {

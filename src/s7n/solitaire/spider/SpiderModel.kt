@@ -34,7 +34,7 @@ class SpiderModel: SolitaireModel() {
         }
 
         // plus one more row for the first 4 columns, total of 54 cards dealt
-        (1..4).forEach { col ->
+        (0..3).forEach { col ->
             tableaus[col].addTop(deck.getTopCard())
         }
 

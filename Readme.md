@@ -3,18 +3,18 @@
 ## Goals:
 
 Implement a solitaire framework that could support a variety of different games.The current
-structure supports tableau-and-goal style games, and implemented are
+structure was designed with tableau-and-goal style games in mind, although games with
+a different structure (like [Pyramid](https://en.wikipedia.org/wiki/Pyramid_(solitaire\))) can be implemented too.
 
 * Klondike
 * Canfield
 * Free Cell
 * Spider
-
-Games that have a more unusual layout, like [Pyramid](https://en.wikipedia.org/wiki/Pyramid_(solitaire\)),
-would probably require new data structure(s) to support.
+* Pyramid
 
 ## What's missing/to do:
 
+* Pyramid doesn't have a cheat function
 * animate drag undo
 * Cheat functions could be better
 * implement Windows-style card moves in Free Cell?
