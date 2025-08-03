@@ -1,5 +1,6 @@
 package s7n.solitaire.base.ui
 
+import s7n.solitaire.base.CardStack
 import s7n.solitaire.base.DragCardsCommand
 import s7n.solitaire.base.STACK_NAME_DRAG
 import s7n.solitaire.base.SolitaireCommand
@@ -91,11 +92,17 @@ open class KlondikeDragManager(private val dragStackPanel: CardStackPanel): Drag
         return Point(x, y)
     }
 
-    private fun getDropTarget(component: Component, dropPoint: Point): Component? {
+    private fun isDropTarget(component: Component, dropPoint: Point, dropStack: CardStack): Boolean {
+        return component.bounds.contains(dropPoint) &&
+                component is CardStackPanel &&
+                component.cardStack.accepts(dropStack)
+    }
+
+    private fun getDropTarget(component: Component, dropPoint: Point, dropStack: CardStack): CardStackPanel? {
         if (component is Container) {
             return component.components.find {
-                it.bounds.contains(dropPoint) && it is CardStackPanel && it.cardStack.name != STACK_NAME_DRAG
-            }
+                isDropTarget(it, dropPoint, dropStack)
+            } as CardStackPanel?
         }
 
         return null
@@ -105,8 +112,12 @@ open class KlondikeDragManager(private val dragStackPanel: CardStackPanel): Drag
         var result: SolitaireCommand? = null
 
         dragSourcePanel?.let {
-            val dropTarget = getDropTarget(e.component, getDropPoint())
-            if (dropTarget is CardStackPanel && dropTarget.cardStack.accepts(dragStackPanel.cardStack)) {
+            val dropTarget = getDropTarget(e.component, getDropPoint(), dragStackPanel.cardStack)
+            require (dropTarget== null || dropTarget.cardStack.accepts(dragStackPanel.cardStack)) {
+                "getDropTarget returned illegal candidate"
+            }
+
+            if (dropTarget != null) {
                 result = getDragCommand(it, dropTarget, dragStackPanel)
             }
             else {
