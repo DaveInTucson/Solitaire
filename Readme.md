@@ -19,6 +19,7 @@ a different structure (like [Pyramid](https://en.wikipedia.org/wiki/Pyramid_(sol
 * Cheat functions could be better
 * implement Windows-style card moves in Free Cell?
 * comments, code review, cleanup
+* should do lazy initialization of games, especially if more are implemented
 
 # Resources
 

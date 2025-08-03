@@ -40,6 +40,9 @@ class PyramidPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePane
         preferredSize = Dimension(computePreferredWidth(8), PYRAMID_PANEL_HEIGHT)
         initialize()
 
+        // By default, the child panels have their z order according to the order they're added to the parent.
+        // For the case of the tableau, they are added from the bottom up, so lower rows physically cover the
+        // rows above them.
         for (row in tableaus.size-1 downTo 0) {
             tableaus[row].forEachIndexed { column, tableau ->
                 CardPositionManager.setTableauPosition(tableau, row, column)

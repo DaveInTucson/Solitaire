@@ -2,6 +2,10 @@ package s7n.solitaire.pyramid
 
 import s7n.solitaire.base.ui.*
 
+/**
+ * This object handles setting the position of the Pyramid CardStackPanels.
+ * {@link #setTableauPosition()} is the fiddly one.
+ */
 object CardPositionManager {
 
     fun setDeckPosition(deckStackPanel: CardStackPanel) {

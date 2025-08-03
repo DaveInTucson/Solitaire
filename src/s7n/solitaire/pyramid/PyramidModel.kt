@@ -41,6 +41,11 @@ class PyramidModel: SolitaireModel() {
         }
     }
 
+    /**
+     * Lower cards in the pyramid cover the one or two cards directly above each one. When a card
+     * is removed from the pyramid, this method is called to notify its covered card(s) that it is
+     * no longer covering them.
+     */
     fun removeCovers(cardStack: CardStack) {
         if (cardStack is PyramidTableauCardStack) {
             val row = cardStack.row
@@ -51,6 +56,10 @@ class PyramidModel: SolitaireModel() {
         }
     }
 
+    /**
+     * This method is called when a card is replaced in the pyramid (via undo) to restore the covered
+     * status of the card(s) it is covering
+     */
     fun addCovers(cardStack: CardStack) {
         if (cardStack is PyramidTableauCardStack) {
             val row = cardStack.row
@@ -66,7 +75,7 @@ class PyramidModel: SolitaireModel() {
     }
 
     override fun getCardStack(name: String): CardStack {
-        TODO("Not yet implemented")
+        throw IllegalStateException("not used in Pyramid")
     }
 
     override fun getCardStacks(name: String): List<CardStack> {
