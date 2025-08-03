@@ -36,7 +36,7 @@ class KlondikeModel: SolitaireModel() {
 
     override fun newGame() {
         cheatCount = 0
-        dealCount = 0
+        dealCount = 1
 
         deck.makeFullDeck()
         deck.shuffle()

@@ -40,7 +40,7 @@ class CanfieldModel: SolitaireModel() {
     }
 
     override fun newGame() {
-        dealCount = 0
+        dealCount = 1
         cheatCount = 0
 
         deck.makeFullDeck()
@@ -101,7 +101,7 @@ class CanfieldModel: SolitaireModel() {
 
     override fun getStatus(): String {
         if (gameIsWon()) {
-            var message = "Game is won! Redeals: $dealCount"
+            var message = "Game is won! Deals: $dealCount"
             if (cheatCount > 0) message += " Cheats: $cheatCount"
             return message
         }

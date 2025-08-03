@@ -11,7 +11,7 @@ const val STACK_NAME_CANDIDATE = "candidate"
 abstract class SolitaireModel {
     private val observers = ArrayList<ChangeObserver>()
     var cheatCount = 0
-    var dealCount = 0
+    var dealCount = 1
 
     val dragStack = CardStack(STACK_NAME_DRAG, CardStackDragSourceType.None)
 

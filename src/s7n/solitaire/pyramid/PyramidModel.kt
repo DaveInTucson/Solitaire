@@ -22,7 +22,7 @@ class PyramidModel: SolitaireModel() {
 
     override fun newGame() {
         cheatCount = 0
-        dealCount = 0
+        dealCount = 1
 
         deck.makeFullDeck()
         deck.shuffle()
@@ -79,7 +79,7 @@ class PyramidModel: SolitaireModel() {
     }
 
     override fun getCardStacks(name: String): List<CardStack> {
-        TODO("Not yet implemented")
+        throw IllegalStateException("not used in Pyramid")
     }
 
     override fun getStatus(): String {
