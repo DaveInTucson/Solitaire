@@ -187,6 +187,7 @@ class PyramidCheatCommand : SolitaireCommand() {
         try {
             if (model is PyramidModel) {
                 model.restoreFromSnapshot(checkPoint)
+                model.cheatCount--
             }
         }
         finally {
