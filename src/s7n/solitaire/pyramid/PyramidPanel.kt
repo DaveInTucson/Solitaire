@@ -80,7 +80,8 @@ class PyramidPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePane
     override fun getModel(): SolitaireModel = model
 
     override fun onCheat() {
-        println("IOU one cheat command")
+        val cheatCommand = PyramidCheatCommand()
+        doCommand(cheatCommand)
     }
 
     override fun autoPromoteToGoal() {

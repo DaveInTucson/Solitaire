@@ -1,8 +1,6 @@
 package s7n.solitaire.pyramid
 
-import s7n.solitaire.base.AnimatedMoveCommand
-import s7n.solitaire.base.Rank
-import s7n.solitaire.base.SolitaireModel
+import s7n.solitaire.base.*
 import s7n.solitaire.base.ui.CardStackPanel
 
 class PyramidDragCommand(
@@ -128,4 +126,72 @@ class PromoteKingToGoalOrDealCommand(
             onComplete()
         }
     }
+}
+
+class PyramidCheatCommand : SolitaireCommand() {
+
+    private var tableauCount = 0
+    private lateinit var checkPoint: PyramidModel
+
+    private fun gatherRemainingCards(model: PyramidModel): CardStack {
+        val remainingCards = CardStack("PyramidSCheatStack", CardStackDragSourceType.None)
+        model.deck.cardStack.forEach { remainingCards.addTop(it) }
+        model.waste.cardStack.forEach { remainingCards.addTop(it) }
+
+        model.tableaus.forEach {tableauRow ->
+            tableauRow.forEach { tableau ->
+                if (tableau.isNotEmpty()) {
+                    remainingCards.addTop(tableau.peekTopCard())
+                    tableauCount++
+                }
+            }
+        }
+
+        return remainingCards
+    }
+
+    override fun doCommand(model: SolitaireModel, onComplete: (succeeded: Boolean) -> Unit) {
+        var success = false
+        try {
+            if (model is PyramidModel) {
+                checkPoint = model.snapshot()
+                val remainingCards = gatherRemainingCards(model)
+                remainingCards.shuffle()
+                model.tableaus.forEach { tableauRow ->
+                    tableauRow.forEach { tableau ->
+                        if (tableau.isNotEmpty()) {
+                            tableau.getTopCard()
+                            model.removeCovers(tableau)
+                        }
+                        if (tableauCount > 0) {
+                            tableau.addTop(remainingCards.getTopCard())
+                            model.addCovers(tableau)
+                            tableauCount--
+                            tableau.setAllFaceUp(true)
+                        }
+                    }
+                }
+
+                model.deck.clear()
+                model.waste.clear()
+                model.deck.add(remainingCards)
+                model.deck.setAllFaceUp(true)
+                model.cheatCount++
+                success = true
+            }
+        }
+        finally { onComplete(success) }
+    }
+
+    override fun undoCommand(model: SolitaireModel, onComplete: () -> Unit) {
+        try {
+            if (model is PyramidModel) {
+                model.restoreFromSnapshot(checkPoint)
+            }
+        }
+        finally {
+            onComplete()
+        }
+    }
+
 }

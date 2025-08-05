@@ -53,4 +53,10 @@ class PyramidTableauCardStack(val row: Int, val column: Int): PyramidCardStack("
     fun resetCover() {
         coverCount = initialCoverCount()
     }
+
+    override fun copy(source: CardStack) {
+        super.copy(source)
+        if (source is PyramidTableauCardStack)
+            coverCount = source.coverCount
+    }
 }

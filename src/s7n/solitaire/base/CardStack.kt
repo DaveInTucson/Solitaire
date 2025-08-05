@@ -28,6 +28,12 @@ open class CardStack(val name: String, private val dragSourceType: CardStackDrag
         observers.forEach { it.onChange() }
     }
 
+    open fun copy(source: CardStack) {
+        cardStack.clear()
+        for (i in source.indices)
+            cardStack.add(source[i])
+    }
+
     fun addTop(card: Card) {
         cardStack.add(card)
         onChange()

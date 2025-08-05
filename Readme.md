@@ -14,7 +14,6 @@ a different structure (like [Pyramid](https://en.wikipedia.org/wiki/Pyramid_(sol
 
 ## What's missing/to do:
 
-* Pyramid doesn't have a cheat function
 * animate drag undo
 * Cheat functions could be better
 * implement Windows-style card moves in Free Cell?

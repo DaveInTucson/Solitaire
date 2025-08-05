@@ -18,7 +18,36 @@ class PyramidModel: SolitaireModel() {
     val tableau6 = (0..5).map { PyramidTableauCardStack(5, it) }
     val tableau7 = (0..6).map { PyramidTableauCardStack(6, it) }
 
-    private val tableaus = arrayOf(tableau1, tableau2, tableau3, tableau4, tableau5, tableau6, tableau7)
+    val tableaus = arrayOf(tableau1, tableau2, tableau3, tableau4, tableau5, tableau6, tableau7)
+
+    fun snapshot(): PyramidModel {
+        val clone = PyramidModel()
+        clone.deck.copy(deck)
+        clone.waste.copy(waste)
+        clone.goal.copy(goal)
+
+        for (iRow in tableaus.indices) {
+            for (iCol in tableaus[iRow].indices) {
+                clone.tableaus[iRow][iCol].copy(tableaus[iRow][iCol])
+            }
+        }
+
+        return clone
+    }
+
+    fun restoreFromSnapshot(snapshot: PyramidModel) {
+        deck.copy(snapshot.deck)
+        waste.copy(snapshot.waste)
+        goal.copy(snapshot.goal)
+
+        for (iRow in tableaus.indices) {
+            for (iCol in tableaus[iRow].indices) {
+                tableaus[iRow][iCol].copy(snapshot.tableaus[iRow][iCol])
+            }
+        }
+
+        onChange()
+    }
 
     override fun newGame() {
         cheatCount = 0
