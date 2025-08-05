@@ -1,7 +1,6 @@
 package s7n.solitaire.base.ui
 
 import s7n.solitaire.base.*
-import java.awt.Color
 import java.awt.Dimension
 import java.awt.Graphics
 import java.awt.Point
@@ -20,7 +19,7 @@ open class CardStackPanel(val cardStack: CardStack, val spreadDown: Boolean): JP
     init {
         preferredSize = Dimension(ImageManager.getCardWidth(), ImageManager.getCardHeight())
         setSize()
-        background = Color(FELT_GREEN_RGB)
+        isOpaque = false
 
         cardStack.addObserver {
             setSize()
