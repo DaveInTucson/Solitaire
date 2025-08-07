@@ -81,7 +81,9 @@ class PyramidPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePane
 
     override fun onCheat() {
         val cheatCommand = PyramidCheatCommand()
-        doCommand(cheatCommand)
+        doCommand(cheatCommand) {
+            // empty body
+        }
     }
 
     override fun autoPromoteToGoal() {

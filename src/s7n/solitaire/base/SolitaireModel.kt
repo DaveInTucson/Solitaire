@@ -13,13 +13,33 @@ abstract class SolitaireModel {
     var cheatCount = 0
     var dealCount = 1
 
+    protected var muteChanges = false
+
     val dragStack = CardStack(STACK_NAME_DRAG, CardStackDragSourceType.None)
 
     fun addObserver(observer: ChangeObserver) {
         observers.add(observer)
     }
 
+    /**
+     * This is a convenience method to allow multiple changes to the model to only
+     * have a single call to the onChange method. This is particularly useful in implementing
+     * newGame, which might otherwise produce several change events that trigger a "game won"
+     * announcement.
+     */
+    protected fun oneChange(callback: () -> Unit) {
+        try {
+            muteChanges = true
+            callback()
+        }
+        finally {
+            muteChanges = false
+            onChange()
+        }
+    }
+
     fun onChange() {
+        if (muteChanges) return
         observers.forEach { it.onChange() }
     }
 

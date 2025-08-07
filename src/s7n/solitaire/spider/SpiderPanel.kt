@@ -56,7 +56,9 @@ class SpiderPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePanel
 
         println("most complete suit=${mostRanks?.key} ($mostRanks)")
         val cheatCommand = SpiderCheat(mostRanks!!.key)
-        doCommand(cheatCommand)
+        doCommand(cheatCommand) {
+            // empty body
+        }
     }
 
     override fun autoPromoteToGoal() {

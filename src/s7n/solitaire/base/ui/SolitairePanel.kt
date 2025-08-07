@@ -118,9 +118,9 @@ abstract class SolitairePanel(val gameName: GameNames, private val statusPanel: 
         // empty body
     }
 
-    protected fun doCommand(command: SolitaireCommand?, onCompleted: (() -> Unit)? = null)  {
+    protected fun doCommand(command: SolitaireCommand?, onCompleted: ((Boolean) -> Unit)?)  {
         if (command == null) {
-            onCompleted?.let { it() }
+            onCompleted?.let { it(false) }
             return
         }
         commandStackManager.runCommand(command, onCompleted)
@@ -141,6 +141,7 @@ abstract class SolitairePanel(val gameName: GameNames, private val statusPanel: 
 
     open fun checkForWin() {
         if (getModel().gameIsWon()) {
+            commandStackManager.clear()
             val victoryMessage = getModel().getVictoryMessage()
             val anotherGame = JOptionPane.showConfirmDialog(
                 this, "$victoryMessage Another game?",

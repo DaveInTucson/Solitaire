@@ -35,19 +35,21 @@ class KlondikeModel: SolitaireModel() {
     }
 
     override fun newGame() {
-        cheatCount = 0
-        dealCount = 1
+        oneChange {
+            cheatCount = 0
+            dealCount = 1
 
-        deck.makeFullDeck()
-        deck.shuffle()
-        waste.clear()
-        goals.forEach { it.clear() }
-        tableaus.forEach { it.clear() }
+            deck.makeFullDeck()
+            deck.shuffle()
+            waste.clear()
+            goals.forEach { it.clear() }
+            tableaus.forEach { it.clear() }
 
-        for (row in tableaus.indices) {
-            for (col in row..<tableaus.size) {
-                tableaus[col].addTop(deck.getTopCard())
-                tableaus[col].peekTopCard().faceUp = row == col
+            for (row in tableaus.indices) {
+                for (col in row..<tableaus.size) {
+                    tableaus[col].addTop(deck.getTopCard())
+                    tableaus[col].peekTopCard().faceUp = row == col
+                }
             }
         }
     }

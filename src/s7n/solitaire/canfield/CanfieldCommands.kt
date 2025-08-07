@@ -6,7 +6,7 @@ import s7n.solitaire.base.SolitaireCommand
 import s7n.solitaire.base.SolitaireModel
 
 class MoveReserveToTableau : SolitaireCommand() {
-    lateinit var tableauStack: CanfieldTableauStack
+    private lateinit var tableauStack: CanfieldTableauStack
 
     override fun doCommand(model: SolitaireModel, onComplete: (Boolean) -> Unit) {
         var success = false
@@ -35,7 +35,7 @@ class MoveReserveToTableau : SolitaireCommand() {
 }
 
 class MoveReserveToGoal: SolitaireCommand() {
-    var targetGoal: CardStack? = null
+    private var targetGoal: CardStack? = null
 
     override fun doCommand(model: SolitaireModel, onComplete: (Boolean) -> Unit) {
         var success = false

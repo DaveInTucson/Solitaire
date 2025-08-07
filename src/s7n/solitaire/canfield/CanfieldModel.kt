@@ -40,41 +40,43 @@ class CanfieldModel: SolitaireModel() {
     }
 
     override fun newGame() {
-        dealCount = 1
-        cheatCount = 0
+        oneChange {
+            muteChanges = true
+            dealCount = 1
+            cheatCount = 0
 
-        deck.makeFullDeck()
-        deck.shuffle()
-        waste.clear()
-        reserve.clear()
+            deck.makeFullDeck()
+            deck.shuffle()
+            waste.clear()
+            reserve.clear()
 
-        tableaus.forEach { it.clear() }
-        goals.forEach { it.clear() }
+            tableaus.forEach { it.clear() }
+            goals.forEach { it.clear() }
 
-        tableaus.forEach {
-            it.addTop(deck.getTopCard())
-            it.setTopFaceUp(true)
-        }
-
-        var goalStartRank = Rank.Ace
-        goals[0].apply {
-            addTop(deck.getTopCard())
-            setTopFaceUp(true)
-            goalStartRank = peekTopCard().rank
-        }
-
-        goals.forEach { it.goalStartRank = goalStartRank }
-
-        reserve.apply {
-            for(i in 1..RESERVE_SIZE) {
-                addTop(deck.getTopCard())
-                setTopFaceUp(false)
+            tableaus.forEach {
+                it.addTop(deck.getTopCard())
+                it.setTopFaceUp(true)
             }
-            setTopFaceUp(true)
-        }
 
-        onChange()
+            var goalStartRank = Rank.Ace
+            goals[0].apply {
+                addTop(deck.getTopCard())
+                setTopFaceUp(true)
+                goalStartRank = peekTopCard().rank
+            }
+
+            goals.forEach { it.goalStartRank = goalStartRank }
+
+            reserve.apply {
+                for (i in 1..RESERVE_SIZE) {
+                    addTop(deck.getTopCard())
+                    setTopFaceUp(false)
+                }
+                setTopFaceUp(true)
+            }
+        }
     }
+
 
     private fun compareRanks(r1: Rank, r2: Rank) : Int {
         val goalStartRank = goals[0].goalStartRank

@@ -86,7 +86,9 @@ class KlondikePanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePan
         if (index != -1 && cheatTableau != null) {
             if (index < cheatTableau.cardStack.size -1) {
                 val command = CheatCommand(cheatTableau.cardStack, index)
-                doCommand(command)
+                doCommand(command) {
+                    // empty body
+                }
             }
             else {
                 JOptionPane.showMessageDialog(

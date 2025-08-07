@@ -67,8 +67,8 @@ class CanfieldPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePan
             val openTableauPanel = tableauPanels.find { it.cardStack.isEmpty() }
             if (openTableauPanel != null) {
                 val command = AnimateSourceToGoal(reservePanel, tableauPanels, animationPanel)
-                doCommand(command) {
-                    SwingUtilities.invokeLater { doPostCommand() }
+                doCommand(command) { success ->
+                    if (success) SwingUtilities.invokeLater { doPostCommand() }
                 }
             }
         }
@@ -94,7 +94,9 @@ class CanfieldPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePan
 
         val command = CheatCommand(model.reserve, promotionIndex)
         println("promotionIndex = $promotionIndex")
-        doCommand(command)
+        doCommand(command) {
+            // empty
+        }
     }
 
     override fun autoPromoteToGoal() {
@@ -105,24 +107,33 @@ class CanfieldPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePan
         }
         if (promotionTableau != null) {
             val command = AnimateSourceToGoal(promotionTableau, goalPanels, animationPanel)
-            doCommand(command) { SwingUtilities.invokeLater { autoPromoteToGoal() } }
+            doCommand(command) { success ->
+                if (success) SwingUtilities.invokeLater { autoPromoteToGoal() }
+            }
         }
 
         if (model.waste.isNotEmpty()) {
             if (model.waste.peekTopCard().rank == promotionRank) {
                 val command = AnimateSourceToGoal(wastePanel, goalPanels, animationPanel)
-                doCommand(command) { SwingUtilities.invokeLater { autoPromoteToGoal() } }
+                doCommand(command) { success ->
+                    if (success) SwingUtilities.invokeLater { autoPromoteToGoal() }
+                }
             }
         }
 
         if (model.reserve.isNotEmpty()) {
             if (model.reserve.peekTopCard().rank == promotionRank) {
                 val command = AnimateSourceToGoal(reservePanel, goalPanels, animationPanel)
-                doCommand(command) { SwingUtilities.invokeLater { autoPromoteToGoal() } }
+                doCommand(command) { success ->
+                    if (success) SwingUtilities.invokeLater { autoPromoteToGoal()
+                    }
+                }
             }
             else if (!dragManager.isDragging){
                 val command = AnimateSourceToGoal(reservePanel, tableauPanels, animationPanel)
-                doCommand(command) { SwingUtilities.invokeLater { autoPromoteToGoal() } }
+                doCommand(command) { success ->
+                    if (success) SwingUtilities.invokeLater { autoPromoteToGoal() }
+                }
             }
         }
     }

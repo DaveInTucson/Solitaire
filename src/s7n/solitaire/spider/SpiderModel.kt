@@ -18,29 +18,31 @@ class SpiderModel: SolitaireModel() {
     }
 
     override fun newGame() {
-        dealCount = 0
-        cheatCount = 0
+        oneChange {
+            dealCount = 0
+            cheatCount = 0
 
-        deck.clear()
-        goals.forEach { it.clear() }
-        tableaus.forEach { it.clear() }
+            deck.clear()
+            goals.forEach { it.clear() }
+            tableaus.forEach { it.clear() }
 
-        deck.makeDoubleDeck()
-        deck.shuffle()
+            deck.makeDoubleDeck()
+            deck.shuffle()
 
-        // 5 rows  of 10 columns = 50 cards
-        (1..5).forEach { _ ->
-            tableaus.forEach { it.addTop(deck.getTopCard()) }
-        }
+            // 5 rows  of 10 columns = 50 cards
+            (1..5).forEach { _ ->
+                tableaus.forEach { it.addTop(deck.getTopCard()) }
+            }
 
-        // plus one more row for the first 4 columns, total of 54 cards dealt
-        (0..3).forEach { col ->
-            tableaus[col].addTop(deck.getTopCard())
-        }
+            // plus one more row for the first 4 columns, total of 54 cards dealt
+            (0..3).forEach { col ->
+                tableaus[col].addTop(deck.getTopCard())
+            }
 
-        tableaus.forEach {
-            it.setAllFaceUp(false)
-            it.setTopFaceUp(true)
+            tableaus.forEach {
+                it.setAllFaceUp(false)
+                it.setTopFaceUp(true)
+            }
         }
     }
 

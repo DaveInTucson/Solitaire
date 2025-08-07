@@ -50,22 +50,24 @@ class PyramidModel: SolitaireModel() {
     }
 
     override fun newGame() {
-        cheatCount = 0
-        dealCount = 1
+        oneChange {
+            cheatCount = 0
+            dealCount = 1
 
-        deck.makeFullDeck()
-        deck.shuffle()
-        deck.setAllFaceUp(true)
+            deck.makeFullDeck()
+            deck.shuffle()
+            deck.setAllFaceUp(true)
 
-        waste.clear()
-        goal.clear()
+            waste.clear()
+            goal.clear()
 
-        tableaus.forEach { tableauRow ->
-            tableauRow.forEach {
-                it.clear()
-                it.addTop(deck.getTopCard())
-                it.setTopFaceUp(true)
-                it.resetCover()
+            tableaus.forEach { tableauRow ->
+                tableauRow.forEach {
+                    it.clear()
+                    it.addTop(deck.getTopCard())
+                    it.setTopFaceUp(true)
+                    it.resetCover()
+                }
             }
         }
     }
