@@ -121,7 +121,7 @@ class CanfieldPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePan
             }
         }
 
-        if (model.reserve.isNotEmpty()) {
+        if (model.reserve.isNotEmpty() && !dragManager.isDragging) {
             if (model.reserve.peekTopCard().rank == promotionRank) {
                 val command = AnimateSourceToGoal(reservePanel, goalPanels, animationPanel)
                 doCommand(command) { success ->
@@ -129,10 +129,13 @@ class CanfieldPanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePan
                     }
                 }
             }
-            else if (!dragManager.isDragging){
-                val command = AnimateSourceToGoal(reservePanel, tableauPanels, animationPanel)
-                doCommand(command) { success ->
-                    if (success) SwingUtilities.invokeLater { autoPromoteToGoal() }
+            else {
+                val emptyTableau = tableauPanels.find { it.cardStack.isEmpty() }
+                if (emptyTableau != null) {
+                    val command = AnimateSourceToGoal(reservePanel, listOf(emptyTableau), animationPanel)
+                    doCommand(command) { success ->
+                        if (success) SwingUtilities.invokeLater { autoPromoteToGoal() }
+                    }
                 }
             }
         }
