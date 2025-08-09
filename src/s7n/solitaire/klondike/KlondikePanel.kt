@@ -77,6 +77,16 @@ class KlondikePanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePan
 
     override fun onCheat() {
         val rank = model.getLowestGoalRankNeeded()
+        val findInDeckOrWaste = (model.deck.cardStack + model.waste.cardStack).find {
+            it.rank == rank
+        }
+        if (findInDeckOrWaste != null) {
+            JOptionPane.showMessageDialog(
+                this,
+                "There is a $rank card in the deck or waste")
+            return
+        }
+        
         var index = -1
         val cheatTableau = tableauPanels.find {
             index = it.cardStack.indexOfRank(rank)

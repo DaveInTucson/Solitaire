@@ -71,7 +71,6 @@ abstract class SolitairePanel(val gameName: GameNames, private val statusPanel: 
                 if (e != null) {
                     val command = getDragManager().onDragEnd(e)
                     doCommandAndPost(command) {
-                        //println("clearing drag stack")
                         dragStackPanel.cardStack.clear()
                         dragStackPanel.setHidden()
                     }
@@ -94,9 +93,7 @@ abstract class SolitairePanel(val gameName: GameNames, private val statusPanel: 
         when (val component = e.component.getComponentAt(e.point)) {
             is CardStackPanel -> {
                 val command = component.onClick(e.clickCount)
-                println("onClick count=${e.clickCount} command=$command")
                 doCommandAndPost(command) {
-                    //println("clickCount=${e.clickCount}")
                     if (e.clickCount > 1) autoPromoteToGoal()
                 }
             }

@@ -126,7 +126,6 @@ abstract class AnimatedMoveCommand(
             } else {
                 val beforeSize = fromPanel.cardStack.size
                 fromPanel.cardStack.add(dragPanel.cardStack)
-                println("failed, from: ${fromPanel.cardStack}")
                 assert(beforeSize + dragPanel.cardStack.size == fromPanel.cardStack.size)
             }
             dragPanel.setHidden()

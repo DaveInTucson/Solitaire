@@ -12,9 +12,6 @@ class CommandQueueManager(private val model: SolitaireModel) {
     private var isRunning = false
 
     fun clear() {
-        if (readyQueue.size != 0) {
-            println("in clear, readyQueue.size=${readyQueue.size}")
-        }
         readyQueue.clear()
     }
 
@@ -26,12 +23,10 @@ class CommandQueueManager(private val model: SolitaireModel) {
     fun undoCommand() {
         if (isRunning || executedCommandStack.isEmpty()) return
         isRunning = true
-        //println("isRunning = true (undo)")
 
         val command = executedCommandStack.pop()
         command.undoCommand(model) {
             isRunning = false
-            //println("isRunning = false (undo)")
             SwingUtilities.invokeLater { tryRunNext() }
         }
     }
@@ -41,7 +36,6 @@ class CommandQueueManager(private val model: SolitaireModel) {
         if (isRunning || readyQueue.isEmpty()) return
 
         isRunning = true
-        //println("isRunning = true")
         val commandAndCallback = readyQueue.remove()
         commandAndCallback.command.doCommand(model) { success ->
             if (success) {
