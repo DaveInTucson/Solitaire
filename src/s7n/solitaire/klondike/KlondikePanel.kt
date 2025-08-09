@@ -86,7 +86,7 @@ class KlondikePanel(gameType: GameNames, statusPanel: StatusPanel): SolitairePan
                 "There is a $rank card in the deck or waste")
             return
         }
-        
+
         var index = -1
         val cheatTableau = tableauPanels.find {
             index = it.cardStack.indexOfRank(rank)
