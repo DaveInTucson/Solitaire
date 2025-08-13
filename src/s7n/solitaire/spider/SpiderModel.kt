@@ -70,16 +70,21 @@ class SpiderModel: SolitaireModel() {
             }
         }
 
+        val consecutiveCount = computeConsecutiveCount()
+
+        var message = "There are ${deck.size} cards in the deck. | Consecutive count: $consecutiveCount"
+        if (cheatCount > 0) message += " | Cheats: $cheatCount"
+        return message
+    }
+
+    private fun computeConsecutiveCount(): Int {
         var consecutiveCount = 0
         (arrayOf(dragStack) + tableaus + goals).forEach {
             for (i in it.cardStack.indices) {
                 if (isConsecutive(it, i)) consecutiveCount++
             }
         }
-
-        var message = "There are ${deck.size} cards in the deck. | Consecutive count: $consecutiveCount"
-        if (cheatCount > 0) message += " | Cheats: $cheatCount"
-        return message
+        return consecutiveCount
     }
 
     override fun getVictoryMessage(): String {

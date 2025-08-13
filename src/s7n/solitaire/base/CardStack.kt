@@ -91,6 +91,7 @@ open class CardStack(val name: String, private val dragSourceType: CardStackDrag
     fun moveTopToN(n: Int) {
         val card = getTopCard()
         cardStack.add(n, card)
+        onChange()
     }
 
     fun getNthCard(n: Int): Card {

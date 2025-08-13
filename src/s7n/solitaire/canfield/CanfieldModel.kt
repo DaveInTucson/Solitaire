@@ -110,7 +110,7 @@ class CanfieldModel: SolitaireModel() {
 
         val baseRank = goals[0].goalStartRank
         var message =
-            "Base rank: $baseRank | Deck size: ${deck.size} | Waste size: ${waste.size} | Reserve size: ${reserve.size} | Redeals: $dealCount"
+            "Base rank: $baseRank | Deck size: ${deck.size} | Waste size: ${waste.size} | Reserve size: ${reserve.size} | Deals: $dealCount"
         if (cheatCount > 0) message += " | Cheats: $cheatCount"
         return message
     }
