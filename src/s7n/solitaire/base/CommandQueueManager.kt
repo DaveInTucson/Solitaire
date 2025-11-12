@@ -13,6 +13,7 @@ class CommandQueueManager(private val model: SolitaireModel) {
 
     fun clear() {
         readyQueue.clear()
+        executedCommandStack.clear()
     }
 
     fun runCommand(command: SolitaireCommand, onCompleted: ((Boolean) -> Unit)?) {
